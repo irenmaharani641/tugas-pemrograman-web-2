@@ -1,6 +1,6 @@
 <x-app>
 
-    <x-slot:title>produk-helm</x-slot>
+    <x-slot:title>{{ $title }}</x-slot>
 
     <h1 class="fw-bold">Data Helm</h1>
 </x-app>

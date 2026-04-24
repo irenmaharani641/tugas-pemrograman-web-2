@@ -2,24 +2,19 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\helm;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class HelmSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      */
     public function run(): void
     {
-
-    $this->call([
-    HelmSeeder::class,
-    ]);
-
-    
+        helm::factory()->count(100)->create();
+        
+        
     }
 }
