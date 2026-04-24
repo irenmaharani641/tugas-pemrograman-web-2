@@ -2,5 +2,10 @@
 
     <x-slot:title>{{ $title }}</x-slot>
 
-    <h1 class="fw-bold">Data Helm</h1>
+    <ul class="list-group">
+        @foreach ($helm as $helm)
+            <li class="list-group-item">{{ $loop->iteration }}. {{ $helm->nama }}. {{ $helm->ukuran }}.
+                {{ $helm->warna }}. {{ $helm->harga }}. {{ $helm->stok }}</li>
+        @endforeach
+    </ul>
 </x-app>

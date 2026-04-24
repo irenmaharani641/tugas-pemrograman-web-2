@@ -12,8 +12,11 @@ class HelmController extends Controller
      */
     public function index()
     {
-    return view('produk-helm.index', ['title' => 'Helm']);
-   
+    return view('produk-helm.index', [
+        'title' => 'helm',
+        'helm'=> helm::all(),
+        ]);
+
 
     }
 
@@ -21,9 +24,9 @@ class HelmController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-     {
+    {
         return view('produk-helm.create', ['title' => 'Create Helm']);
-       
+    
     }
 
     /**

@@ -19,10 +19,10 @@ class HelmFactory extends Factory
     {
         return [
             'nama' => fake()->name(),
-            'ukuran' => fake()->numberBetween(),
+            'ukuran' => fake()->numerify(),
             'warna' => fake()->name(),
-            'harga' => fake()->numberBetween(),
-            'stok' => fake()->numberBetween(),
+            'harga' => fake()->numerify(),
+            'stok' => fake()->numerify(),
         ];
 
     }
