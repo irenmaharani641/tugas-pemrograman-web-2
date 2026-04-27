@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\helm;
+use App\Models\Helm;
 use Illuminate\Http\Request;
 
-class HelmController extends Controller
+
+class HelmController extends Controller 
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +14,8 @@ class HelmController extends Controller
     public function index()
     {
     return view('produk-helm.index', [
-        'title' => 'helm',
-        'helm'=> helm::all(),
+        'title' => ' produk helm',
+        'Helms'=> Helm::all(), 
         ]);
 
 
@@ -34,13 +35,31 @@ class HelmController extends Controller
      */
     public function store(Request $request)
     {
-        //
+    $validated = $request->validate([
+       'nama' => 'required|max:255',
+       'ukuran' => 'required|max:255',
+       'warna' => 'required|max:255',
+       'harga' => 'required|numeric',
+       'stok' => 'required|numeric'
+    ], [ 
+        'nama.required' => 'Nama Helm tidak boleh kosong',
+        'ukuran.required' => 'Ukuran Helm tidak boleh kosong',
+        'warna.required' => 'Warna Helm tidak boleh kosong',
+        'harga.required' => 'Harga tidak boleh kosong',
+        'stok.required' => 'Stok tidak boleh kosong',
+    ]);
+
+
+    Helm::create($validated);
+    return redirect()->route('produk-helm.index')->with('success', 'Data berhasil ditambahkan');
+
+    
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(helm $helm)
+    public function show(Helm $Helm)
     {
         //
     }
@@ -48,7 +67,7 @@ class HelmController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(helm $helm)
+    public function edit(Helm $Helm)
     {
         //
     }
@@ -56,7 +75,7 @@ class HelmController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, helm $helm)
+    public function update(Request $request, Helm $Helm)
     {
         //
     }
@@ -64,7 +83,7 @@ class HelmController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(helm $helm)
+    public function destroy(Helm $Helm)
     {
         //
     }

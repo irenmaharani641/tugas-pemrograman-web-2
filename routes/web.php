@@ -7,7 +7,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/produk-helm', [HelmController::class, 'index']);
-Route::get('/produk-helm/create', [HelmController::class,'create']);
+Route::get('/', [HelmController::class, 'index']);
+
+Route::get('/produk-helm', [HelmController::class,'index'])->name('produk-helm.index');
+Route::get('/produk-helm/create', [HelmController::class,'create'])->name('produk-helm.create');
+Route::post('produk-helm/store', [HelmController::class,'store'])->name('produk-helm.store');
+
 
 

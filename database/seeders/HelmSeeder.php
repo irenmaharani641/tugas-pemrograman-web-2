@@ -13,8 +13,7 @@ class HelmSeeder extends Seeder
      */
     public function run(): void
     {
-        helm::factory()->count(100)->create();
-        
+    
         
     }
 }
