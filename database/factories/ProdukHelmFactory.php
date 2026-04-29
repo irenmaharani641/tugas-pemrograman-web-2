@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\produk-helm;
+use App\Models\helm;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +18,11 @@ class ProdukHelmFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nama' => fake()->nama(),
+            'ukuran' => fake()->numerify(),
+            'warna' => fake()->nama(),
+            'harga' => fake()->nama(),
+            'stok' => fake()->nama(),
         ];
     }
 }

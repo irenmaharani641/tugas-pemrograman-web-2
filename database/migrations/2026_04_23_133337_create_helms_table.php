@@ -6,27 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */ 
-    public function up(): void
+    public function up()
     {
-        Schema::create('helms', function (Blueprint $table) {
+        Schema::create('Helms', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');          
-            $table->integer('ukuran');     
-            $table->string('warna');          
-            $table->integer('harga');  
-            $table->integer('stok');  
-            $table->timestamps(); 
+            $table->string('nama');
+            $table->string('ukuran');
+            $table->string('warna');
+            $table->decimal('harga', 10, 2);
+            $table->integer('stok')->default(0);
+            $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('helm');
+        Schema::dropIfExists('Helms');
     }
 };

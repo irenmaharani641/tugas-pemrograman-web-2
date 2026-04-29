@@ -14,7 +14,7 @@ class HelmController extends Controller
     public function index()
     {
     return view('produk-helm.index', [
-        'title' => ' produk helm',
+        'title' => 'Poduk Helm',
         'Helms'=> Helm::all(), 
         ]);
 
@@ -36,11 +36,11 @@ class HelmController extends Controller
     public function store(Request $request)
     {
     $validated = $request->validate([
-       'nama' => 'required|max:255',
-       'ukuran' => 'required|max:255',
-       'warna' => 'required|max:255',
-       'harga' => 'required|numeric',
-       'stok' => 'required|numeric'
+        'nama' => 'required|max:255',
+        'ukuran' => 'required|max:255',
+        'warna' => 'required|max:255',
+        'harga' => 'required|numeric',
+        'stok' => 'required|numeric'
     ], [ 
         'nama.required' => 'Nama Helm tidak boleh kosong',
         'ukuran.required' => 'Ukuran Helm tidak boleh kosong',
@@ -69,15 +69,35 @@ class HelmController extends Controller
      */
     public function edit(Helm $Helm)
     {
-        //
+        return view('produk-helm.edit', [
+        'title' => ' edit produk Helm',
+        'Helm'=> $Helm, 
+        ]);
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Helm $Helm)
+    public function update(Request $request, helm $Helm)
     {
-        //
+        $validated = $request->validate([
+        'nama' => 'required|max:255',
+        'ukuran' => 'required|max:255',
+        'warna' => 'required|max:255',
+        'harga' => 'required|numeric',
+        'stok' => 'required|numeric'
+    ], [ 
+        'nama.required' => 'Nama elm tidak boleh kosong',
+        'ukuran.required' => 'Ukuran Helm tidak boleh kosong',
+        'warna.required' => 'Warna Helm tidak boleh kosong',
+        'harga.required' => 'Harga tidak boleh kosong',
+        'stok.required' => 'Stok tidak boleh kosong',
+    ]);
+    
+    $Helm->update($validated);
+    return redirect()->route('produk-helm.index')->with('success', 'Data Berhasil Diubah');
+
     }
 
     /**
@@ -85,6 +105,7 @@ class HelmController extends Controller
      */
     public function destroy(Helm $Helm)
     {
-        //
+    
+
     }
 }
