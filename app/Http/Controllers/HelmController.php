@@ -105,7 +105,8 @@ class HelmController extends Controller
      */
     public function destroy(Helm $Helm)
     {
-    
+        $Helm->delete($Helm);
+        return redirect()->route('produk-helm.index')->with('success', 'Data berhasil dihapus');
 
     }
 }

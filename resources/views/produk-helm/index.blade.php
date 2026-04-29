@@ -2,6 +2,7 @@
 
     <x-slot:title>{{ $title }}</x-slot>
 
+
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
@@ -9,31 +10,28 @@
         </div>
     @endif
 
-    <a class="btn btn-primary mb-3" href="{{ route('produk-helm.create') }}">Create</a>
+    <a class="btn btn-primary mb-3" href="{{ route('produk-helm.create') }}" role="button">Create</a>
 
     <ul class="list-group">
-        @forelse ($Helms as $Helm)
-            <li class="list-group-item">
+        @foreach ($Helms as $Helm)
+            <li class="list-group-item fs-7">
                 {{ $loop->iteration }}.
                 {{ $Helm->nama }} --
                 {{ $Helm->ukuran }} --
                 {{ $Helm->warna }} --
                 {{ $Helm->harga }} --
-                {{ $Helm->stok }} --
-                <a class="btn btn-warning btn-sm" href="{{ route('produk-helm.edit', $Helm) }}" role="button">edit</a>
-                <form action="/example" method="POST">
-                    @method('PUT')
+                {{ $Helm->stok }}
+                <a href="{{ route('produk-helm.edit', $Helm) }}" class="btn btn-warning">
+                    Edit
+                </a>
+                <form action="{{ route('produk-helm.destroy', $Helm) }}" method="POST" class="d-inline">
+                    @method('DELETE')
                     @csrf
+                    <button type="submit" class="btn btn-danger"
+                        onclick="return confirm('ANDA YAKIN?')">Delete</button>
                 </form>
-
-
-
             </li>
-        @empty
-            <li class="list-group-item text-center">
-                Data Helm belum tersedia
-            </li>
-        @endforelse
+        @endforeach
     </ul>
 
 </x-app>

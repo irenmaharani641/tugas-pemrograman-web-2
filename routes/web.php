@@ -12,3 +12,5 @@ Route::get('/produk-helm/create', [HelmController::class,'create'])->name('produ
 Route::post('produk-helm/store', [HelmController::class,'store'])->name('produk-helm.store');
 Route::get('/produk-helm/{Helm}/edit', [HelmController::class,'edit'])->name('produk-helm.edit');
 Route::put('/produk-helm/{helm}', [HelmController::class,'update'])->name('produk-helm.update');
+Route::delete('/produk-helm/{helm}', [HelmController::class,'destroy'])->name('produk-helm.destroy');
+
