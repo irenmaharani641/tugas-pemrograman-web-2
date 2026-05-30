@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Toko extends Model
 {
-    protected $fillable = ['nama', 'alamat', 'pemilik'];
+    use HasFactory; // ← WAJIB supaya bisa pakai factory()
 
-    
-    public function transaksis()
-    {
-        return $this->hasMany(Transaksi::class);
-    }
+    protected $fillable = [
+        'nama',
+        'alamat',
+        'pemilik',
+    ];
 }

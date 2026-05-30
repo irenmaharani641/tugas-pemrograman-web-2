@@ -12,6 +12,6 @@ class TokoSeeder extends Seeder
      */
     public function run(): void
     {
-        Toko::factory()->count(5)->create();
+        Toko::factory()->count(500)->create();
     }
 }

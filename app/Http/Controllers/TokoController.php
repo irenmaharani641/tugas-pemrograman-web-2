@@ -11,13 +11,26 @@ class TokoController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+{
+    // ambil keyword dari query string (?keyword=...)
+    $keyword = request('keyword');
+
+    $tokos = Toko::latest()
+        ->when($keyword, function ($query, $keyword) {
+            $query->where('nama', 'like', "%{$keyword}%")
+                  ->orWhere('alamat', 'like', "%{$keyword}%")
+                  ->orWhere('pemilik', 'like', "%{$keyword}%");
+        }) // ← jangan pakai titik koma di sini
+        ->paginate(6)
+        ->withQueryString();
+
     return view('Toko.index', [
         'title' => 'Toko',
-        'tokos'=> Toko::all(), 
-        ]);
-    }
-    
+        'tokos' => $tokos,
+        'search' => $keyword, // kirim keyword ke Blade
+    ]);
+}
+
 
     /**
      * Show the form for creating a new resource.
