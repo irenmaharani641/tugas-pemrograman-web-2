@@ -8,6 +8,9 @@
         </div>
     @endif
 
+    <!-- Tombol Create -->
+    <a class="btn btn-primary mb-3" href="{{ route('Toko.create') }}" role="button">CREATE</a>
+
     <!-- Form Pencarian -->
     <form method="GET" action="{{ route('Toko.index') }}">
         <div class="row g-3 mb-3">

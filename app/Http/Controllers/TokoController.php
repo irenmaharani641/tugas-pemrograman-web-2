@@ -37,7 +37,9 @@ class TokoController extends Controller
      */
     public function create()
     {
-        //
+         return view('Toko.create', [
+        'title' => 'Tambah Toko'
+    ]);
     }
 
     /**
@@ -45,7 +47,15 @@ class TokoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+        'nama' => 'required|string|max:255',
+        'alamat' => 'required|string|max:255',
+        'pemilik' => 'required|string|max:255',
+    ]);
+
+    Toko::create($validated);
+
+    return redirect()->route('Toko.index')->with('success', 'Data toko berhasil ditambahkan!');
     }
 
     /**
