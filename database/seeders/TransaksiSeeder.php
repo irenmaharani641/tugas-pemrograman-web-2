@@ -2,18 +2,16 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Transaksi;
 use Illuminate\Database\Seeder;
 
-class ProdukHelmSeeder extends Seeder
+class TransaksiSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        
-        
-
+        Transaksi::factory()->count(100)->create();
     }
 }

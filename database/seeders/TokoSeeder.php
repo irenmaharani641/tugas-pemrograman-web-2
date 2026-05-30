@@ -2,18 +2,16 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Toko;
 use Illuminate\Database\Seeder;
 
-class ProdukHelmSeeder extends Seeder
+class TokoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        
-        
-
+        Toko::factory()->count(5)->create();
     }
 }
