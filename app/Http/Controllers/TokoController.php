@@ -13,21 +13,21 @@ class TokoController extends Controller
     public function index()
 {
     // ambil keyword dari query string (?keyword=...)
-    $keyword = request('keyword');
+    $keyword = request()->input('keyword');
 
-    $tokos = Toko::latest()
+    $tokos = Toko::query()
         ->when($keyword, function ($query, $keyword) {
             $query->where('nama', 'like', "%{$keyword}%")
                   ->orWhere('alamat', 'like', "%{$keyword}%")
                   ->orWhere('pemilik', 'like', "%{$keyword}%");
-        }) // ← jangan pakai titik koma di sini
+        })
         ->paginate(6)
         ->withQueryString();
 
     return view('Toko.index', [
-        'title' => 'Toko',
+        'title' => 'Data Toko',
         'tokos' => $tokos,
-        'search' => $keyword, // kirim keyword ke Blade
+        'keyword' => $keyword, // ← tambahkan ini
     ]);
 }
 
@@ -71,7 +71,10 @@ class TokoController extends Controller
      */
     public function edit(Toko $toko)
     {
-        //
+        return view('Toko.edit', [
+        'title' => 'Edit Toko',
+        'toko' => $toko
+    ]);
     }
 
     /**
@@ -79,14 +82,21 @@ class TokoController extends Controller
      */
     public function update(Request $request, Toko $toko)
     {
-        //
-    }
+        $validated = $request->validate([
+        'nama' => 'required|string|max:255',
+        'alamat' => 'required|string|max:255',
+        'pemilik' => 'required|string|max:255',
+    ]);
 
+    $toko->update($validated);
+session()->forget('success');
+    return redirect()->route('Toko.index')->with('success', 'Data Berhasil Diubah!');
+    }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Toko $toko)
     {
-        //
+    
     }
 }
