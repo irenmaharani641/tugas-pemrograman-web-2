@@ -97,6 +97,9 @@ session()->forget('success');
      */
     public function destroy(Toko $toko)
     {
-    
+    $toko->delete();
+
+    return redirect()->route('Toko.index')
+        ->with('success', 'Data Berhasil Dihapus!');
     }
 }
