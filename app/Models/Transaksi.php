@@ -9,7 +9,6 @@ class Transaksi extends Model
 {
     use HasFactory;
 
-    // Kolom yang bisa diisi (mass assignment)
     protected $fillable = [
         'kode_transaksi',
         'tanggal',
@@ -19,7 +18,7 @@ class Transaksi extends Model
         'toko_id',
     ];
 
-    // Relasi ke Model Toko (Many-to-One)
+    // Relasi ke Toko
     public function toko()
     {
         return $this->belongsTo(Toko::class);

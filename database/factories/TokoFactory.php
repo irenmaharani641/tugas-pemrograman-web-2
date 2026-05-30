@@ -12,6 +12,7 @@ class TokoFactory extends Factory
             'nama' => $this->faker->company,
             'alamat' => $this->faker->address,
             'pemilik' => $this->faker->name,
+            
         ];
     }
 }

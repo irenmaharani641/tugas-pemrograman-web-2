@@ -7,11 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Toko extends Model
 {
-    use HasFactory; // ← WAJIB supaya bisa pakai factory()
+    use HasFactory;
 
     protected $fillable = [
         'nama',
         'alamat',
         'pemilik',
     ];
+
+    // Tambahkan relasi ke Transaksi
+    public function transaksis()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
 }

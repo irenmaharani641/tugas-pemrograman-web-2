@@ -27,6 +27,7 @@
                 {{ $toko->nama }} --
                 {{ $toko->alamat }} --
                 {{ $toko->pemilik }}
+                <a href="{{ route('Toko.show', $toko) }}" class="btn btn-info">Detail</a>
 
                 <a href="{{ route('Toko.edit', $toko) }}" class="btn btn-warning">Edit</a>
 
