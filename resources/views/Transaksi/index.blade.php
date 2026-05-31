@@ -9,13 +9,21 @@
         <input type="text" name="keyword" value="{{ $keyword }}" class="form-control me-2"
             placeholder="Cari kode/metode pembayaran...">
         <select name="status" class="form-select me-2">
-
+            <option value="">-- Semua Status --</option>
             <option value="pending" {{ $status == 'pending' ? 'selected' : '' }}>Pending</option>
             <option value="success" {{ $status == 'success' ? 'selected' : '' }}>Success</option>
             <option value="failed" {{ $status == 'failed' ? 'selected' : '' }}>Failed</option>
         </select>
         <button type="submit" class="btn btn-outline-primary">Filter</button>
     </form>
+
+    <!-- Flash Message -->
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
 
     <!-- List Transaksi -->
     <ul class="list-group">
@@ -28,7 +36,15 @@
                 <small>Toko: {{ $transaksi->toko->nama }}</small>
 
                 <!-- Tombol Edit -->
-                <a href="{{ route('Transaksi.edit', $transaksi->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{{ route('Transaksi.edit', $transaksi) }}" class="btn btn-warning btn-sm">Edit</a>
+
+                <!-- Tombol Delete -->
+                <form action="{{ route('Transaksi.destroy', $transaksi) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Yakin ingin menghapus data ini?')">Delete</button>
+                </form>
             </li>
         @endforeach
     </ul>
