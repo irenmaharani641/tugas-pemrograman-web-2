@@ -79,17 +79,45 @@ class TransaksiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Transaksi $transaksi)
-    {
-        //
-    }
+   public function edit($id)
+{
+    $transaksi = Transaksi::findOrFail($id);
+    $tokos = Toko::all();
+
+    return view('Transaksi.edit', [
+        'title' => 'Ubah Transaksi',
+        'transaksi' => $transaksi,
+        'tokos' => $tokos
+    ]);
+}
+
+
+
+    
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Transaksi $transaksi)
     {
-        //
+        
+{
+     $request->validate([
+            'kode_transaksi' => 'required',
+            'tanggal' => 'required|date',
+            'total_harga' => 'required|numeric',
+            'metode_pembayaran' => 'required',
+            'status' => 'required',
+            'toko_id' => 'required|exists:tokos,id',
+        ]);
+
+        // Simpan perubahan
+        $transaksi->update($request->all());
+
+        return redirect()->route('Transaksi.index')
+                         ->with('success', 'Data Transaksi berhasil diubah!');
+}
+
     }
 
     /**

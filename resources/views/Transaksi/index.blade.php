@@ -9,7 +9,7 @@
         <input type="text" name="keyword" value="{{ $keyword }}" class="form-control me-2"
             placeholder="Cari kode/metode pembayaran...">
         <select name="status" class="form-select me-2">
-            <option value="">-- Semua Status --</option>
+
             <option value="pending" {{ $status == 'pending' ? 'selected' : '' }}>Pending</option>
             <option value="success" {{ $status == 'success' ? 'selected' : '' }}>Success</option>
             <option value="failed" {{ $status == 'failed' ? 'selected' : '' }}>Failed</option>
@@ -19,17 +19,18 @@
 
     <!-- List Transaksi -->
     <ul class="list-group">
-        @forelse ($transaksis as $transaksi)
+        @foreach ($transaksis as $transaksi)
             <li class="list-group-item">
                 {{ $transaksis->firstItem() + $loop->index }}.
                 {{ $transaksi->kode_transaksi }} - {{ $transaksi->tanggal }}
                 - Rp{{ number_format($transaksi->total_harga, 0, ',', '.') }}
                 <br>
                 <small>Toko: {{ $transaksi->toko->nama }}</small>
+
+                <!-- Tombol Edit -->
+                <a href="{{ route('Transaksi.edit', $transaksi->id) }}" class="btn btn-warning btn-sm">Edit</a>
             </li>
-        @empty
-            <li class="list-group-item">Belum ada data transaksi</li>
-        @endforelse
+        @endforeach
     </ul>
 
     <!-- Pagination -->
