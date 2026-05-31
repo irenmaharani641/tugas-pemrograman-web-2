@@ -22,6 +22,7 @@
                 <div class="navbar-nav">
                     <a class="nav-link active" href="{{ route('produk-helm.index') }}">Helm</a>
                     <a class="nav-link active" href="{{ route('Toko.index') }}">Toko</a>
+                    <a class="nav-link active" href="{{ route('Transaksi.index') }}">Transaksi</a>
                 </div>
             </div>
         </div>

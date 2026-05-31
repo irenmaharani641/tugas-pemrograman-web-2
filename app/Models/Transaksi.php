@@ -21,6 +21,7 @@ class Transaksi extends Model
     // Relasi ke Toko
     public function toko()
     {
-        return $this->belongsTo(Toko::class);
+    return $this->belongsTo(Toko::class);
+        
     }
 }

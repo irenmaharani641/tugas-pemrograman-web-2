@@ -12,7 +12,30 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        //
+         function index(Request $request)
+{
+    $keyword = $request->input('keyword');
+    $status  = $request->input('status');
+
+    $transaksis = Transaksi::with('toko')
+        ->when($keyword, function ($query, $keyword) {
+            return $query->where('kode_transaksi', 'like', "%{$keyword}%")
+                         ->orWhere('metode_pembayaran', 'like', "%{$keyword}%");
+        })
+        ->when($status, function ($query, $status) {
+            return $query->where('status', $status);
+        })
+        ->paginate(10)
+        ->withQueryString();
+
+    return view('Transaksi.index', [
+        'title' => 'Daftar Transaksi',
+        'transaksis' => $transaksis,
+        'keyword' => $keyword,
+        'status' => $status,
+    ]);
+}
+
     }
 
     /**

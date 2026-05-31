@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HelmController;
 use App\Http\Controllers\TokoController;
+use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HelmController::class, 'index']);
@@ -14,3 +15,4 @@ Route::put('/produk-helm/{helm}', [HelmController::class, 'update'])->name('prod
 Route::delete('/produk-helm/{helm}', [HelmController::class, 'destroy'])->name('produk-helm.destroy');
 
 Route::resource('Toko', TokoController::class);
+Route::resource('Transaksi',TransaksiController::class);
