@@ -27,7 +27,7 @@ class TokoController extends Controller
         return view('Toko.index', [
             'title' => 'Data Toko',
             'tokos' => $tokos,
-            'keyword' => $keyword, // ← tambahkan ini
+            'keyword' => $keyword,
         ]);
     }
 

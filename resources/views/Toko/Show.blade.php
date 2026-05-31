@@ -1,10 +1,8 @@
 <x-app>
     <x-slot:title>{{ $title }}</x-slot>
 
-    <!-- Tombol Back -->
     <a class="btn btn-warning mb-3" href="{{ route('Toko.index') }}" role="button">Back</a>
 
-    {{-- Data Toko --}}
     <h6>Data Toko</h6>
     <ul class="list-group mb-3">
         <li class="list-group-item">Nama: {{ $toko->nama }}</li>
@@ -18,7 +16,7 @@
         </li>
     </ul>
 
-    {{-- Relasi Transaksi --}}
+
     <h6>Data Transaksi</h6>
     <ul class="list-group">
         @forelse ($toko->transaksis as $transaksi)

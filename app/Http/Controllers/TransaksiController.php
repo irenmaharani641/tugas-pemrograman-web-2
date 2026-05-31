@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Toko;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 
@@ -10,9 +11,7 @@ class TransaksiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-         function index(Request $request)
+   public function index(Request $request)
 {
     $keyword = $request->input('keyword');
     $status  = $request->input('status');
@@ -25,7 +24,7 @@ class TransaksiController extends Controller
         ->when($status, function ($query, $status) {
             return $query->where('status', $status);
         })
-        ->paginate(10)
+        ->paginate(6)
         ->withQueryString();
 
     return view('Transaksi.index', [
@@ -36,14 +35,17 @@ class TransaksiController extends Controller
     ]);
 }
 
-    }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        $tokos = Toko::all(); 
+    return view('Transaksi.Create', [
+        'title' => 'Tambah Transaksi',
+        'tokos' => $tokos
+            ]);
     }
 
     /**
@@ -51,7 +53,19 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'kode_transaksi' => 'required|string|max:50',
+            'tanggal' => 'required|date',
+            'total_harga' => 'required|numeric',
+            'metode_pembayaran' => 'required|string|max:50',
+            'status' => 'required|string|max:20',
+            'toko_id' => 'required|exists:tokos,id',
+        ]);
+
+        Transaksi::create($validated);
+
+        return redirect()->route('Transaksi.index')
+                         ->with('success', 'Data transaksi berhasil ditambahkan!');
     }
 
     /**

@@ -15,4 +15,5 @@ Route::put('/produk-helm/{helm}', [HelmController::class, 'update'])->name('prod
 Route::delete('/produk-helm/{helm}', [HelmController::class, 'destroy'])->name('produk-helm.destroy');
 
 Route::resource('Toko', TokoController::class);
-Route::resource('Transaksi',TransaksiController::class);
+Route::resource('Transaksi', TransaksiController::class);
+
