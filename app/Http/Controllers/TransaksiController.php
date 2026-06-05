@@ -15,23 +15,24 @@ class TransaksiController extends Controller
 {
     $keyword = $request->input('keyword');
     $status  = $request->input('status');
-
     $transaksis = Transaksi::with('toko')
-        ->when($keyword, function ($query, $keyword) {
-            return $query->where('kode_transaksi', 'like', "%{$keyword}%")
-                         ->orWhere('metode_pembayaran', 'like', "%{$keyword}%");
+        ->when($request->keyword, function ($query, $keyword) {
+            $query->where('kode_transaksi', 'like', "%{$keyword}%")  ->orWhere('metode_pembayaran', 'like', "%{$keyword}%")
+            ->orWhere('status', 'like', "%{$keyword}%");
         })
-        ->when($status, function ($query, $status) {
-            return $query->where('status', $status);
+        ->when($request->toko_id, function ($query, $toko_id) {
+            $query->where('toko_id', $toko_id);
         })
         ->paginate(6)
         ->withQueryString();
 
+    $tokos = Toko::all();
     return view('Transaksi.index', [
         'title' => 'Daftar Transaksi',
         'transaksis' => $transaksis,
         'keyword' => $keyword,
         'status' => $status,
+        'tokos' => $tokos
     ]);
 }
 
@@ -65,7 +66,7 @@ class TransaksiController extends Controller
         Transaksi::create($validated);
 
         return redirect()->route('Transaksi.index')
-                         ->with('success', 'Data transaksi berhasil ditambahkan!');
+                        ->with('success', 'Data transaksi berhasil ditambahkan!');
     }
 
     /**
@@ -73,7 +74,10 @@ class TransaksiController extends Controller
      */
     public function show(Transaksi $transaksi)
     {
-        //
+        return view('Transaksi.show', [
+        'title' => 'Detail Transaksi',
+        'transaksi' => $transaksi
+    ]);
     }
 
     /**
@@ -101,7 +105,7 @@ class TransaksiController extends Controller
     public function update(Request $request, Transaksi $transaksi)
     {
         
-{
+
      $request->validate([
             'kode_transaksi' => 'required',
             'tanggal' => 'required|date',
@@ -116,9 +120,9 @@ class TransaksiController extends Controller
 
         return redirect()->route('Transaksi.index')
                          ->with('success', 'Data Transaksi berhasil diubah!');
-}
-
     }
+
+    
 
     /**
      * Remove the specified resource from storage.
@@ -129,5 +133,7 @@ class TransaksiController extends Controller
 
     return redirect()->route('Transaksi.index')
                      ->with('success', 'Data Transaksi berhasil dihapus!');  
+
+
     }
 }

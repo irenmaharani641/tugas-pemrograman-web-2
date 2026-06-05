@@ -1,56 +1,62 @@
 <x-app>
-    <x-slot:title>{{ $title }}</x-slot>
 
-    <!-- Tombol Create -->
-    <a href="{{ route('Transaksi.create') }}" class="btn btn-primary mb-3">Create</a>
+    <x-slot:title> {{ $title }}</x-slot>
 
-    <!-- Form Search + Filter -->
-    <form method="GET" action="{{ route('Transaksi.index') }}" class="mb-3 d-flex">
-        <input type="text" name="keyword" value="{{ $keyword }}" class="form-control me-2"
-            placeholder="Cari kode/metode pembayaran...">
-        <select name="status" class="form-select me-2">
-            <option value="">-- Semua Status --</option>
-            <option value="pending" {{ $status == 'pending' ? 'selected' : '' }}>Pending</option>
-            <option value="success" {{ $status == 'success' ? 'selected' : '' }}>Success</option>
-            <option value="failed" {{ $status == 'failed' ? 'selected' : '' }}>Failed</option>
-        </select>
-        <button type="submit" class="btn btn-outline-primary">Filter</button>
+    @session('success')
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endsession
+
+    <form action="{{ route('Transaksi.index') }}" method="GET">
+
+        <div class="row g-3 mb-3">
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Seacrh seat name ..."
+                    value="{{ request('keyword') }}">
+            </div>
+            <div class="col-md-4">
+                <select class="form-select" id="toko_id" name="toko_id">
+                    <option value="">All Toko</option>
+                    @foreach ($tokos as $toko)
+                        <option value="{{ $toko->id }}" {{ request('toko_id') == $toko->id ? 'selected' : '' }}>
+                            {{ $toko->nama }}
+                        </option>
+                    @endforeach
+
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success">Search</button>
+            </div>
+        </div>
+
     </form>
 
-    <!-- Flash Message -->
-    @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-
-    <!-- List Transaksi -->
+    <a class="btn btn-primary mb-3" href="{{ route('Transaksi.create') }}" role="button">Create</a>
     <ul class="list-group">
         @foreach ($transaksis as $transaksi)
-            <li class="list-group-item">
-                {{ $transaksis->firstItem() + $loop->index }}.
-                {{ $transaksi->kode_transaksi }} - {{ $transaksi->tanggal }}
-                - Rp{{ number_format($transaksi->total_harga, 0, ',', '.') }}
-                <br>
-                <small>Toko: {{ $transaksi->toko->nama }}</small>
-
-                <!-- Tombol Edit -->
-                <a href="{{ route('Transaksi.edit', $transaksi) }}" class="btn btn-warning btn-sm">Edit</a>
-
-                <!-- Tombol Delete -->
+            <li class="list-group-item" style="font-size: 14px;">{{ $transaksis->firstItem() + $loop->index }}.
+                {{ $transaksi->kode_transaksi }} -
+                {{ $transaksi->tanggal }} -
+                {{ $transaksi->total_harga }} -
+                {{ $transaksi->metode_pembayaran }} -
+                {{ $transaksi->status }} -
+                {{ $transaksi->toko->nama }}
+                <a class="btn btn-info btn-sm" href="{{ route('Transaksi.show', $transaksi) }}"
+                    role="button">Detail</a>
+                <a class="btn btn-warning btn-sm" href="{{ route('Transaksi.edit', $transaksi) }}"
+                    role="button">Edit</a>
                 <form action="{{ route('Transaksi.destroy', $transaksi) }}" method="POST" class="d-inline">
-                    @csrf
                     @method('DELETE')
+                    @csrf
                     <button type="submit" class="btn btn-danger btn-sm"
-                        onclick="return confirm('Yakin ingin menghapus data ini?')">Delete</button>
+                        onclick="return confirm('Anda yakin')">Delete</button>
                 </form>
             </li>
         @endforeach
     </ul>
 
-    <!-- Pagination -->
-    <div class="mt-3">
-        {{ $transaksis->links() }}
-    </div>
+    {{ $transaksis->links() }}
+
 </x-app>

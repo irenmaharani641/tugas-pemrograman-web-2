@@ -12,8 +12,6 @@ class ProdukHelmSeeder extends Seeder
      */
     public function run(): void
     {
-        
-        
-
+       
     }
 }

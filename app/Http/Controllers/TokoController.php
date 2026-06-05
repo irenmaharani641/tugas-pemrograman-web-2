@@ -61,12 +61,12 @@ class TokoController extends Controller
      * Display the specified resource.
      */
     public function show(Toko $toko)
-    {
-        return view('Toko.show', [
-            'title' => 'Detail Toko',
-            'toko' => $toko,
-        ]);
-    }
+{
+    return view('Toko.Show', [
+        'title' => 'Detail Toko',
+        'toko'  => $toko,
+    ]);
+}
 
     /**
      * Show the form for editing the specified resource.
