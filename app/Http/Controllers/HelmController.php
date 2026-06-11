@@ -132,7 +132,13 @@ return redirect()->route('produk-helm.index')->withSuccess('Data Berhasil Dihapu
     $Helm->restore();
     return redirect()->route('produk-helm.index')->withSuccess('Data Berhasil Dikembalikan');
     }
-   
+    public function forceDelete(Helm $Helm)
+    {
+    $Helm->forceDelete();
+    return redirect()->route('produk-helm.trash')->withSuccess('Data Berhasil Dihapus');
+    }
+    
+
     
     //
 }

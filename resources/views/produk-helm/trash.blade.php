@@ -30,12 +30,13 @@
                     <button type="submit" class="btn btn-warning btn-sm"
                         onclick="return confirm('ANDA YAKIN ingin mengembalikan data ini?')">Restore</button>
                 </form>
-                <form action="{{ route('produk-helm.destroy', $Helm) }}" method="POST" class="d-inline">
-                    @method('DELETE')
+                <form action="{{ route('produk-helm.force-delete', $Helm) }}" method="POST" class="d-inline">
+                    @method('PUT')
                     @csrf
-                    <button type="submit" class="btn btn-danger"
-                        onclick="return confirm('ANDA YAKIN?')">Delete</button>
-                </form>
+
+                    <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('ANDA YAKIN ingin menghapus data ini secara permanen?')">Force Delete
+                    </button>
             </li>
         @endforeach
     </ul>

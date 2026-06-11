@@ -18,5 +18,7 @@ Route::resource('Toko', TokoController::class);
 Route::resource('Transaksi', TransaksiController::class);
 Route::get('/produk-helm/trash', [HelmController::class, 'trash'])->name('produk-helm.trash');
 Route::put('/produk-helm/{helm}/restore', [HelmController::class, 'restore'])->name('produk-helm.restore')->withTrashed();
+Route::put('/produk-helm/{helm}/force-delete', [HelmController::class, 'forceDelete'])->name('produk-helm.force-delete')->withTrashed();
+
 
 
