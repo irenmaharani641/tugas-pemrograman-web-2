@@ -23,9 +23,13 @@
                 {{ $Helm->stok }} --
                 <strong>{{ $Helm->deskripsi ?? 'deskripsi' }}</strong>
 
-                <a href="{{ route('produk-helm.edit', $Helm) }}" class="btn btn-warning">
-                    Edit
-                </a>
+                <form action="{{ route('produk-helm.restore', $Helm) }}" method="POST" class="d-inline">
+                    @method('PUT')
+                    @csrf
+
+                    <button type="submit" class="btn btn-warning btn-sm"
+                        onclick="return confirm('ANDA YAKIN ingin mengembalikan data ini?')">Restore</button>
+                </form>
                 <form action="{{ route('produk-helm.destroy', $Helm) }}" method="POST" class="d-inline">
                     @method('DELETE')
                     @csrf

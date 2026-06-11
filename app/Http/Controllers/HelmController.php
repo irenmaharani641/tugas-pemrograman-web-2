@@ -108,9 +108,32 @@ DB::rollBack();
     return redirect()->route('produk-helm.edit', $Helm)->withError('Gagal menambahkan data: ' . $e->getMessage());
 }
     }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+public function destroy(helm $Helm)
+{
+$Helm->delete($Helm);
+return redirect()->route('produk-helm.index')->withSuccess('Data Berhasil Dihapus');
+}
+    
+
     public function trash() {
-    $tokos = Helm::onlyTrashed()->get();
-    return view('produk-helm.trash', compact('Helms'));
+    $Helm = Helm::onlyTrashed()->get();
+    return view('produk-helm.trash', [
+        'title' => 'Trash Produk Helm',
+        'Helms' => $Helm
+    ]);
+    
     }
+    public function restore(Helm $Helm)
+    {
+    $Helm->restore();
+    return redirect()->route('produk-helm.index')->withSuccess('Data Berhasil Dikembalikan');
+    }
+   
+    
+    //
 }
 
