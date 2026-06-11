@@ -23,6 +23,8 @@
                     <a class="nav-link active" href="{{ route('produk-helm.index') }}">Helm</a>
                     <a class="nav-link active" href="{{ route('Toko.index') }}">Toko</a>
                     <a class="nav-link active" href="{{ route('Transaksi.index') }}">Transaksi</a>
+                    <a class="nav-link active" href="{{ route('produk-helm.trash') }}">Trash</a>
+
                 </div>
             </div>
         </div>

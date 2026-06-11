@@ -51,7 +51,7 @@
         </div>
         <div class="form-group">
             <label for="deskripsi">Deskripsi</label>
-            <textarea name="deskripsi" class="form-control"></textarea>
+            <textarea name="deskripsi" class="form-control">{{ old('deskripsi') }}</textarea>
         </div>
 
         <a class="btn btn-warning" href="{{ route('produk-helm.index') }}">Cancel</a>

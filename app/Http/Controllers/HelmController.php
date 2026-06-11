@@ -108,4 +108,9 @@ DB::rollBack();
     return redirect()->route('produk-helm.edit', $Helm)->withError('Gagal menambahkan data: ' . $e->getMessage());
 }
     }
+    public function trash() {
+    $tokos = Helm::onlyTrashed()->get();
+    return view('produk-helm.trash', compact('Helms'));
+    }
 }
+

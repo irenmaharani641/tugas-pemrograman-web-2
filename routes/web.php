@@ -16,4 +16,6 @@ Route::delete('/produk-helm/{helm}', [HelmController::class, 'destroy'])->name('
 
 Route::resource('Toko', TokoController::class);
 Route::resource('Transaksi', TransaksiController::class);
+Route::get('/produk-helm/trash', [HelmController::class, 'trash'])->name('produk-helm.trash');
+
 
