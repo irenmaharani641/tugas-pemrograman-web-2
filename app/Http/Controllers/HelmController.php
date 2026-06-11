@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Helm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class HelmController extends Controller 
@@ -49,13 +50,16 @@ class HelmController extends Controller
         'stok.required' => 'Stok tidak boleh kosong',
     ]);
 
-
+DB::table('helms')->insert($validated);
+try {
     Helm::create($validated);
-    return redirect()->route('produk-helm.index')->with('success', 'Data berhasil ditambahkan');
-
-    
+DB::commit();
+return redirect()->route('produk-helm.index')->with('success', 'Data Berhasil Ditambahkan');
+} catch (\Exception $e) {
+DB::rollBack();
+    return redirect()->route('produk-helm.create')->with('error', 'Gagal menambahkan data: ' . $e->getMessage());
+}
     }
-
     /**
      * Display the specified resource.
      */
