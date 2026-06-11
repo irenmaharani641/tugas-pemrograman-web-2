@@ -54,10 +54,10 @@ DB::table('helms')->insert($validated);
 try {
     Helm::create($validated);
 DB::commit();
-return redirect()->route('produk-helm.index')->with('success', 'Data Berhasil Ditambahkan');
+return redirect()->route('produk-helm.index')->withSuccess('Data Berhasil Ditambahkan');
 } catch (\Exception $e) {
 DB::rollBack();
-    return redirect()->route('produk-helm.create')->with('error', 'Gagal menambahkan data: ' . $e->getMessage());
+    return redirect()->route('produk-helm.create')->withError('Gagal menambahkan data: ' . $e->getMessage());
 }
     }
     /**
@@ -98,19 +98,14 @@ DB::rollBack();
         'harga.required' => 'Harga tidak boleh kosong',
         'stok.required' => 'Stok tidak boleh kosong',
     ]);
-    
-    $Helm->update($validated);
-    return redirect()->route('produk-helm.index')->with('success', 'Data Berhasil Diubah');
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Helm $Helm)
-    {
-        $Helm->delete($Helm);
-        return redirect()->route('produk-helm.index')->with('success', 'Data berhasil dihapus');
-
+   DB::table('helms')->insert($validated);
+try {
+    Helm::create($validated);
+DB::commit();
+return redirect()->route('produk-helm.index')->withSuccess('Data Berhasil Ditambahkan');
+} catch (\Exception $e) {
+DB::rollBack();
+    return redirect()->route('produk-helm.edit', $Helm)->withError('Gagal menambahkan data: ' . $e->getMessage());
+}
     }
 }
