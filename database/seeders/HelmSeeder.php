@@ -112,10 +112,14 @@ class HelmSeeder extends Seeder
             ['nama' => 'Helm Half Face Ostrich', 'ukuran' => 'M', 'warna' => 'Merah', 'harga' => 300000, 'stok' => 20],
             ['nama' => 'Helm Modular Peacock', 'ukuran' => 'XL', 'warna' => 'Putih', 'harga' => 565000, 'stok' => 6],
             ['nama' => 'Helm Full Face Parrot', 'ukuran' => 'M', 'warna' => 'Biru', 'harga' => 470000, 'stok' => 9],
+            ['deskripsi' => 'Helm full face dengan ventilasi bagus',]
+
         ];
 
         foreach ($data as $item) {
             Helm::create($item);
+            
+
         }
     }
 }

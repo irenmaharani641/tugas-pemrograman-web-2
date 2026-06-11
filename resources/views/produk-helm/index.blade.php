@@ -20,7 +20,9 @@
                 {{ $Helm->ukuran }} --
                 {{ $Helm->warna }} --
                 {{ $Helm->harga }} --
-                {{ $Helm->stok }}
+                {{ $Helm->stok }} --
+                <strong>{{ $Helm->deskripsi ?? 'deskripsi' }}</strong>
+
                 <a href="{{ route('produk-helm.edit', $Helm) }}" class="btn btn-warning">
                     Edit
                 </a>
